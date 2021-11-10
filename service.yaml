@@ -1,0 +1,37 @@
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  labels:
+    name: gitlab-app
+  name: gitlab-app2
+  namespace: gitlabteste
+spec:
+  type: NodePort 
+  ports:
+  - name: gitlab
+    nodePort: $PORTA$
+    port: $PORTA$
+    protocol: TCP
+    targetPort: $PORTA$
+  selector:
+    app: gitlab-app
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: gitlab-app
+  name: gitlab-app
+  namespace: gitlabteste
+spec:
+  ports:
+  - name: gitlab-http
+    port: $PORTA$
+    protocol: TCP
+    targetPort: $PORTA$
+  selector:
+    app: gitlab-app
+  sessionAffinity: None
+  type: ClusterIP

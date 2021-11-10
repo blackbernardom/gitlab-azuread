@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: gitlab-app
+  name: gitlab
+  namespace: gitlabteste
+spec:
+  selector:
+    matchLabels:
+      app: gitlab-app
+  serviceName: gitlab-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gitlab-app
+    spec:
+      containers:
+        - name: gitlab
+          image: gitlab/gitlab-ce:13.8.4-ce.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/gitlab
+              name: gitlab-volume
+              subPath: gitlab-etc           
+            - mountPath: /var/log/gitlab
+              name: gitlab-volume
+              subPath: gitlab-log
+            - mountPath: /var/opt/gitlab
+              name: gitlab-volume
+              subPath: gitlab-opt 
+      restartPolicy: Always
+      volumes:
+        - name: gitlab-volume
+          persistentVolumeClaim:
+            claimName: gitlab-volume-claim
+  

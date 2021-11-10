@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gitlab
+  namespace: gitlabteste
+spec:
+  rules:
+  - host: gitexemplo.com
+    http:
+      paths:
+      - backend:
+          serviceName: gitlab-app
+          servicePort: $PORTA$
+

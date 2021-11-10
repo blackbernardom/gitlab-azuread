@@ -1,0 +1,26 @@
+#PostgreSQL connection details
+ gitlab_rails['db_adapter'] = 'postgresql'
+ gitlab_rails['db_encoding'] = 'unicode'
+ gitlab_rails['db_host'] = 'VALOR' # IP/hostname of database server
+ gitlab_rails['db_password'] = 'VALOR'
+
+external_url 'https://url.com'
+
+nginx['listen_port'] = 80
+nginx['listen_https'] = false
+
+#AD configuration
+gitlab_rails['omniauth_enabled'] = true
+gitlab_rails['omniauth_allow_single_sign_on'] = ['saml',"azure_oauth2"]
+gitlab_rails['omniauth_block_auto_created_users'] = true
+gitlab_rails['omniauth_auto_link_ldap_user'] = true
+gitlab_rails['omniauth_providers'] = [
+  {
+    "name": "azure_oauth2",
+    "args": {
+      "client_id": "VALOR",
+      "client_secret": "VALOR",
+      "tenant_id": "VALOR"
+    }
+  }
+]
